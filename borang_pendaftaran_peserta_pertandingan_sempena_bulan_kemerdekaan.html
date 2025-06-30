@@ -1,0 +1,201 @@
+<html>
+<head>
+<title>Borang Pendaftaran Peserta</title>
+<script>
+function pengesahan()
+{
+  var semakNama = document.forms["borang"]["nama"].value;
+  var semakNokp = document.forms["borang"]["nokp"].value;
+  var semakNotel = document.forms["borang"]["notel"].value;
+
+  var jantinaRadios = document.getElementsByName("jantina");
+  var semakJantina = "";
+  for (var i = 0; i < jantinaRadios.length; i++) {
+    if (jantinaRadios[i].checked) {
+      semakJantina = jantinaRadios[i].value;
+      break;
+    }
+  }
+  
+  var pertandinganCheckboxes = document.getElementsByName("pertandingan");
+  var bilanganDipilih = 0;
+  for (var i = 0; i < pertandinganCheckboxes.length; i++) {
+  if (pertandinganCheckboxes[i].checked) {
+      bilanganDipilih++;
+    }
+  }
+
+  var adaRalat = false;
+
+  if (semakNama == "") {
+    window.alert("⚠️Sila masukkan NAMA PESERTA");
+    adaRalat = true;
+  }
+  
+  else if (!/^[A-Za-z\s]+$/.test(semakNama)) {
+  window.alert("⚠️Sila masukkan PERKATAAN SAHAJA - NAMA PESERTA");
+  adaRalat = true;
+  }
+  
+  if (semakNokp == "") {
+    window.alert("⚠️Sila masukkan NO KAD PENGENALAN");
+    adaRalat = true;
+  }
+  else if (!/^\d+$/.test(semakNokp)) {
+    window.alert("⚠️Sila masukkan NOMBOR sahaja - NOMBOR KAD PENGENALAN");
+    adaRalat = true;
+  }
+  
+  if (semakNotel == "") {
+    window.alert("⚠️Sila masukkan NOMBOR TELEFON");
+    adaRalat = true;
+  }
+  
+  else if (!/^\d+$/.test(semakNotel)) {
+    window.alert("⚠️Sila masukkan NOMBOR sahaja - NOMBOR TELEFON");
+    adaRalat = true;
+  }
+  
+  if (semakJantina == "") {
+    window.alert("⚠️Sila tandakan JANTINA");
+    adaRalat = true;
+  }
+  
+  if (bilanganDipilih === 0) {
+    window.alert("⚠️Sila tandakan PERTANDINGAN");
+    adaRalat = true;
+  } else if (bilanganDipilih === 1) {
+    window.alert("⚠️Sila pilih sekurang-kurangnya 2 PERTANDINGAN");
+    adaRalat = true;
+  } else if (bilanganDipilih > 2) {
+    window.alert("⚠️Sila pilih 2 PERTANDINGAN sahaja");
+    adaRalat = true;
+  }
+
+  if (adaRalat) {
+    return false;
+  }
+  
+  var pilihan = [];
+  for (var i = 0; i < pertandinganCheckboxes.length; i++) {
+  if (pertandinganCheckboxes[i].checked) {
+    pilihan.push(pertandinganCheckboxes[i].value);
+  }
+}
+
+var mesej =
+  "Maklumat Dihantar:\n" +
+  "Nama Peserta : " + semakNama + "\n" +
+  "No. Kad Pengenalan : " + semakNokp + "\n" +
+  "No. Telefon : " + semakNotel + "\n" +
+  "Jantina : " + semakJantina + "\n" +
+  "Pertandingan yang ingin disertai : \n- " + pilihan.join("\n- ");
+
+window.alert(mesej);
+
+return true;
+}
+</script>
+<style>
+  body {
+    font-family: Lucida Console, sans-serif;
+    background-color: #4294BB;
+    padding: 40px;
+    line-height: 1.6;
+  }
+
+  h1 {
+    color: #f5c542;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  form {
+    background-color: #93D6F5;
+    padding: 25px 40px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+
+  input[type="radio"],
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+
+  input[type="submit"] {
+    background-color: #10597d;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    margin-top: 20px;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #003399;
+  }
+
+  p {
+    margin: 14px 0 6px;
+  }
+
+  /* Label alignment if needed */
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+</style>
+<head>
+
+<body>
+
+<h1>Borang Pendaftaran Peserta Pertandingan Sempena Bulan Kemerdekaan</h1>
+
+<form name="borang" onsubmit="return pengesahan()" method="post">
+  <label style="display:inline-block; width:230px;">Nama Peserta * :</label>
+  <input name="nama"><br><br>
+
+  <label style="display:inline-block; width:230px;">No. Kad Pengenalan * :</label>
+  <input name="nokp"><br><br>
+
+  <label style="display:inline-block; width:230px;">No. Telefon * :</label>
+  <input name="notel"><br><br>
+
+  <label style="display:inline-block; width:230px;">Jantina * :</label>
+  <input type="radio" name="jantina" id="L" value="Lelaki"> Lelaki 
+  <input type="radio" name="jantina" id="P" value="Perempuan"> Perempuan<br><br>
+
+ <label style="display:inline-block; width:400px; vertical-align: top;">Pertandingan yang ingin disertai * :</label>
+<div style="display: inline-flex; gap: 40px;">
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+    <label><input type="checkbox" name="pertandingan" value="Melukis Doodle"> Melukis Doodle</label>
+    <label><input type="checkbox" name="pertandingan" value="Sukan Rakyat"> Sukan Rakyat</label>
+    <label><input type="checkbox" name="pertandingan" value="Kuiz Kemerdekaan"> Kuiz Kemerdekaan</label>
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 8px;">
+    <label><input type="checkbox" name="pertandingan" value="Nyanyian Lagu Patriotik"> Nyanyian Lagu Patriotik</label>
+    <label><input type="checkbox" name="pertandingan" value="Pakaian Bertema Jalur Gemilang"> Pakaian Bertema Jalur Gemilang</label>
+    <label><input type="checkbox" name="pertandingan" value="Buku Skrap Tokoh Kemerdekaan"> Buku Skrap Tokoh Kemerdekaan</label>
+  </div>
+</div>
+
+  <input type="submit" value="Hantar">
+</form>    
+</body>
+</html>  
+  
